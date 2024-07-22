@@ -1,13 +1,11 @@
-
 /**
  * Beschreiben Sie hier die Klasse OBERES_ROHR.
- * 
- * @author (Ihr Name) 
+ *
+ * @author (Ihr Name)
  * @version (eine Versionsnummer oder ein Datum)
  */
 public class OBERES_ROHR extends BILD
 {
-
     /**
      * Konstruktor für Objekte der Klasse OBERES_ROHR
      */
@@ -15,5 +13,4 @@ public class OBERES_ROHR extends BILD
     {
         super(x, y, "images/top.png");
     }
-
 }

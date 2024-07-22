@@ -1,8 +1,7 @@
-
 /**
  * Beschreiben Sie hier die Klasse FLAPPY_BIRD.
- * 
- * @author (Ihr Name) 
+ *
+ * @author (Ihr Name)
  * @version (eine Versionsnummer oder ein Datum)
  */
 public class FLAPPY_BIRD extends SPIEL
@@ -12,9 +11,9 @@ public class FLAPPY_BIRD extends SPIEL
     private ROHRE[] rohre;
 
     private TEXT gameover_text;
-    
+
     private SOUND gameover_sound;
-    
+
     int punktestand;
 
     /**
@@ -23,52 +22,49 @@ public class FLAPPY_BIRD extends SPIEL
     public FLAPPY_BIRD()
     {
         super(794, 527, false, false, false);
-
         setzeHintergrundgrafik("images/background_wide.png");
-
         vogel = new VOGEL();
         rohre = new ROHRE[3];
-        for(int i = 0; i < 3; i++) {
-            // Zufällige Höhe der Rohre 
+        for (int i = 0; i < 3; i++)
+        {
+            // Zufällige Höhe der Rohre
             int y_zufall = zufallszahlVonBis(-50, 125);
             rohre[i] = new ROHRE(265 * (i + 1), y_zufall);
         }
-
         punktestand = 0;
         setzeNurLinkePunkteanzeigeSichtbar();
         setzePunkteanzeigeLinks(punktestand);
-
         tickerNeuStarten(100);
     }
 
     /**
-     * Wird regelmaessig automatisch aufgerufen. So kommt Bewegung ins Spiel! 
+     * Wird regelmaessig automatisch aufgerufen. So kommt Bewegung ins Spiel!
      * Tick-Intervall kann angepasst werden. Ticker muss erst gestartet werden.
      */
     @Override
-    public void tick() 
-    {   
-        if(istSpielVorbei()) {
+    public void tick()
+    {
+        if (istSpielVorbei())
+        {
             tickerStoppen();
             gameover();
         }
-        else {
+        else
+        {
             vogel.fallen();
-            for(int i = 0; i < 3; i++) {
+            for (int i = 0; i < 3; i++)
+            {
                 int y_zufall = zufallszahlVonBis(-50, 150);
                 rohre[i].bewegen(794, y_zufall);
-                
                 aktualisierePunktestand();
             }
-
         }
-        
     }
 
     /**
      * Methode, die den Punktestand aktualisiert
-     * 
-     * @param  neuerPunktestand	Neuer Punktestand
+     *
+     * @param neuerPunktestand Neuer Punktestand
      */
     public void aktualisierePunktestand()
     {
@@ -79,13 +75,15 @@ public class FLAPPY_BIRD extends SPIEL
 
     /**
      * Methode, die überprüft, ob eine Taste gedrückt wurde
-     * 
-     * @param taste gedrückte Taste 
+     *
+     * @param taste gedrückte Taste
      */
     @Override
-    public void tasteReagieren(int taste) {
-        switch(taste) {
-            case TASTE.OBEN: // Pfeil nach oben
+    public void tasteReagieren(int taste)
+    {
+        switch (taste)
+        {
+        case TASTE.OBEN: // Pfeil nach oben
             vogel.fliegen();
             break;
         }
@@ -97,17 +95,18 @@ public class FLAPPY_BIRD extends SPIEL
     public boolean istSpielVorbei()
     {
         // Das Spiel ist vorbei wenn entweder dein Rohr berührt wird...
-        for(int i = 0; i < 3; i++) {
-            if(rohre[i].berührt(vogel)) {
+        for (int i = 0; i < 3; i++)
+        {
+            if (rohre[i].berührt(vogel))
+            {
                 return true;
             }
         }
-
         // ... oder der Vogel außerhalb des Fensters ist
-        if(vogel.getY() > 527) {
+        if (vogel.getY() > 527)
+        {
             return true;
         }
-        
         return false;
     }
 
@@ -119,9 +118,7 @@ public class FLAPPY_BIRD extends SPIEL
         gameover_text = new TEXT(350, 263, "Game over!");
         gameover_text.setzeGroesse(50);
         gameover_text.setzeFarbe("Rot");
-        
         gameover_sound = new SOUND("sounds/gameover.mp3");
         gameover_sound.play();
     }
-
 }
